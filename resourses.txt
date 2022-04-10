@@ -1,0 +1,6 @@
+#NLP FAQ от ODS: https://docs.google.com/document/d/1Uwvo6Z9iS6VpznKuN-AeMPeFFdl-0iw9T_VEtgcEX_w/edit?pli=1#
+Tokenization in general: https://neptune.ai/blog/tokenization-in-nlp
+How to setup BERT for the first time: https://towardsdatascience.com/bert-for-dummies-step-by-step-tutorial-fb90890ffe03
+Russian Embeddings: https://bpemb.h-its.org/
+Fake News Research: https://www.hindawi.com/journals/complexity/2020/8885861/
+Visual Guide for BERT: https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/
