@@ -13,3 +13,10 @@ Polymorphy2: https://pymorphy2.readthedocs.io/en/stable/user/guide.html
 NLP Baselines: https://github.com/vetka925/ods_nlp_baselines/blob/master/example.ipynb
 PyTorch NN: https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html
 Binary Classification with PyTorch: https://towardsdatascience.com/pytorch-tabular-binary-classification-a0368da5bb89
+BiDirectional LSTM PyTorch: https://towardsdatascience.com/lstm-text-classification-using-pytorch-2c6c657f8fc0
+BERT: https://towardsdatascience.com/bert-text-classification-using-pytorch-723dfb8b6b5b
+Fake News Kaggle: https://www.kaggle.com/datasets/nopdev/real-and-fake-news-dataset
+
+BERT HuggingFace: https://huggingface.co/docs/transformers/index
+https://towardsdatascience.com/text-classification-with-bert-in-pytorch-887965e5820f
+
