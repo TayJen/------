@@ -8,13 +8,14 @@ from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import pandas as pd
-from xgboost import train
 
 np.random.seed(13)
 
 EPOCHS = 100
 BATCH_SIZE = 64
-LEARNING_RATE = 0.01
+LEARNING_RATE = 3e-6
+HIDDEN = 64
+DROP = 0.25
 
 
 class SimpleNewsNet(nn.Module):
@@ -76,17 +77,25 @@ def binary_acc(y_pred, y_test):
 def main():
     path = 'new data\\new_df_train.csv'
     df = pd.read_csv(path)
-    X = df.drop('is_fake', axis=1)
-    y = df['is_fake']
+    df_train, df_val, df_test = np.split(df.sample(frac=1, random_state=13),
+                                         [int(.8*len(df)), int(.9*len(df))])
+    X_train = df_train.drop('is_fake', axis=1)
+    y_train = df_train['is_fake']
+    X_val = df_val.drop('is_fake', axis=1)
+    y_val = df_val['is_fake']
+    X_test = df_test.drop('is_fake', axis=1)
+    y_test = df_test['is_fake']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=13)
+    # X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=13)
     train_data = TrainData(torch.FloatTensor(X_train.to_numpy()), torch.FloatTensor(y_train.to_numpy()))
+    val_data = TrainData(torch.FloatTensor(X_val.to_numpy()), torch.FloatTensor(y_val.to_numpy()))
     test_data = TestData(torch.FloatTensor(X_test.to_numpy()))
 
     train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
+    val_loader = DataLoader(dataset=val_data, batch_size=2)
     test_loader = DataLoader(dataset=test_data, batch_size=1)
 
-    model = SimpleNewsNet(X_train.shape[1], hidden=128, drop=0.25)
+    model = SimpleNewsNet(X_train.shape[1], hidden=HIDDEN, drop=DROP)
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
@@ -107,9 +116,25 @@ def main():
             
             epoch_loss += loss.item()
             epoch_acc += acc.item()
-            
 
         print(f'Epoch {e+0:03}: | Loss: {epoch_loss/len(train_loader):.5f} | Acc: {epoch_acc/len(train_loader):.3f}')
+
+        epoch_loss_val = 0
+        epoch_acc_val = 0
+
+        with torch.no_grad():
+
+            for X_batch_val, y_batch_val in val_loader:
+                y_pred = model(X_batch_val)
+
+                loss = criterion(y_pred, y_batch_val.unsqueeze(1))
+                acc = binary_acc(y_pred, y_batch_val.unsqueeze(1))
+                
+                epoch_loss_val += loss.item()
+                epoch_acc_val += acc.item()
+
+        print(f'Val Loss: {epoch_loss_val/len(val_loader):.5f} | Val Acc: {epoch_acc_val/len(val_loader):.3f}')
+            
 
     y_pred_list = []
     model.eval()

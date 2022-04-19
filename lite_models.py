@@ -17,7 +17,7 @@ def train_model(data, model):
     t1 = time()
     y_pred = model.predict(X_test)
     t2 = time()
-
+    
     time_train = t1 - t0
     time_pred = t2 - t1
 
