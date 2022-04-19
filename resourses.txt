@@ -20,3 +20,12 @@ Fake News Kaggle: https://www.kaggle.com/datasets/nopdev/real-and-fake-news-data
 BERT HuggingFace: https://huggingface.co/docs/transformers/index
 https://towardsdatascience.com/text-classification-with-bert-in-pytorch-887965e5820f
 
+BERT FineTune from Skolkovo Sensitive Topics: https://huggingface.co/Skoltech/russian-sensitive-topics
+BERT Inference from Skolkovo: https://github.com/skoltech-nlp/inappropriate-sensitive-topics/blob/main/Version2/sensitive_topics/Inference.ipynb
+DeepPavlov BERT: http://docs.deeppavlov.ai/en/master/features/models/bert.html
+DeepPavlov BERT TensorFlow Colab: https://colab.research.google.com/drive/1fNmbLpfOY-aAZwYqLOcepeHgcmG3LURF?authuser=2#scrollTo=7ITs_wpucHKq
+RuBert, where is it from: https://arxiv.org/pdf/1905.07213.pdf
+
+For BERT Colab Problems with criterion: https://stackoverflow.com/questions/57798033/valueerror-target-size-torch-size16-must-be-the-same-as-input-size-torch
+
+

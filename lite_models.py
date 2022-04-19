@@ -10,7 +10,7 @@ import pandas as pd
 
 def train_model(data, model):
     X_train, X_test, y_train, y_test = train_test_split(data.drop('is_fake', axis=1), data['is_fake'],
-                                                        test_size=0.3, random_state=13)
+                                                        test_size=0.2, random_state=13)
 
     t0 = time()
     model.fit(X_train, y_train)
