@@ -11,6 +11,13 @@ import pandas as pd
 
 np.random.seed(13)
 
+# Данные гиперпараметры были прокручены в ручную
+# EPOCHS = (10, 25, 50, 100)
+# BATCH_SIZE = (64)
+# LEARNING_RATE = (1e-3, 1e-5, 3e-6, 1e-6, 1e-7)
+# HIDDEN = (32, 64, 128, 256)
+# DROP = (0.1, 0.2, 0.25)
+# Оптимальные результаты получены при следующих значениях:
 EPOCHS = 100
 BATCH_SIZE = 64
 LEARNING_RATE = 3e-6
@@ -64,6 +71,9 @@ class TestData(Dataset):
 
 
 def binary_acc(y_pred, y_test):
+    '''
+        Точность предсказаний при бинарной классификации
+    '''
     y_pred_tag = torch.round(torch.sigmoid(y_pred))
 
     correct_results_sum = (y_pred_tag == y_test).sum().float()
@@ -75,10 +85,14 @@ def binary_acc(y_pred, y_test):
 
 
 def main():
+    # Считываем данные
     path = 'new data\\new_df_train.csv'
     df = pd.read_csv(path)
+    # Делим датасет на train/valid/test в соотношении: 80%/10%/10%
     df_train, df_val, df_test = np.split(df.sample(frac=1, random_state=13),
                                          [int(.8*len(df)), int(.9*len(df))])
+    
+    # Разделяем предикторы и таргеты
     X_train = df_train.drop('is_fake', axis=1)
     y_train = df_train['is_fake']
     X_val = df_val.drop('is_fake', axis=1)
@@ -135,7 +149,7 @@ def main():
 
         print(f'Val Loss: {epoch_loss_val/len(val_loader):.5f} | Val Acc: {epoch_acc_val/len(val_loader):.3f}')
             
-
+    # После обучения модели проверим результаты на тестовой выборке
     y_pred_list = []
     model.eval()
     with torch.no_grad():
