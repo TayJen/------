@@ -4,3 +4,9 @@ old/nlp_test_task_2022.zip
 new data/new_df_train.csv
 new data/new_df_test.csv
 dataset/predictions.tsv
+Taychinov_Evgeny/predictions.tsv
+Taychinov_Evgeny/solution/BERT_NLP_Contur_FakeNews.ipynb
+Taychinov_Evgeny/solution/lite_model.ipynb
+Taychinov_Evgeny/solution/research.ipynb
+Taychinov_Evgeny/solution/resourses.txt
+Taychinov_Evgeny/solution/Sequential_NN.py
